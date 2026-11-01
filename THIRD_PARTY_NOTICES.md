@@ -11,4 +11,4 @@ Other components include Android Open Source Project (Apache 2.0), Kotlin (Apach
 
 The Screen Off TV icon artwork was supplied by the project owner. No additional ownership or licensing claim about that supplied artwork is made here.
 
-Application and IPC packages use com.thaicuonght.screenofftv. The current application version is 0.1.4. The code remains derived from the source identified above.
+Application and IPC packages use com.thaicuonght.screenofftv. The current application version is 0.1.5. The code remains derived from the source identified above.

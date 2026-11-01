@@ -27,7 +27,7 @@ Screen Off TV 负责控制屏幕，不播放音乐或视频，也不会为其他
 
 ## 下载与安装
 
-[**下载 APK 0.1.4**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk) · [SHA-256](dist/SHA256SUMS)
+[**下载 APK 0.1.5**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) · [SHA-256](dist/SHA256SUMS)
 
 APK 使用专用发布密钥签名。
 
@@ -101,7 +101,7 @@ https://raw.githubusercontent.com/thaicuonght/ScreenOffTV/main/docs/AGENT-INSTAL
 
 ## 构建与测试
 
-版本 **0.1.4**，versionCode **4**，应用 ID `com.thaicuonght.screenofftv`。
+版本 **0.1.5**，versionCode **4**，应用 ID `com.thaicuonght.screenofftv`。
 需要 JDK 17 和 Android SDK platform 35。设置 `JAVA_HOME` 与 `ANDROID_HOME`。
 
 ```bash

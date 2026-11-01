@@ -14,7 +14,7 @@ Bạn cần TV có kết nối Wi-Fi, remote điều khiển, máy tính hoặc 
 | Ứng dụng | Nguồn dự án | Nguồn tải về |
 |---|---|---|
 | Shizuku 13.7.0-thedjchi | [Trang phát hành](https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi) | [Tải APK](https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk) |
-| Screen Off TV 0.1.4 | [Trang APK trong repo](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.4.apk) | [Tải APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk) |
+| Screen Off TV 0.1.5 | [Trang APK trong repo](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk) | [Tải APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) |
 
 Đối chiếu SHA-256 bằng `sha256sum TEN_TEP.apk` trên Linux hoặc `Get-FileHash TEN_TEP.apk -Algorithm SHA256` trong PowerShell:
 
@@ -22,8 +22,8 @@ Bạn cần TV có kết nối Wi-Fi, remote điều khiển, máy tính hoặc 
 shizuku-v13.7.0-thedjchi.apk
 6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43
 
-Screen-Off-TV-0.1.4.apk
-e645b70728aa4dfb37c94f19cf7d644887f63e25c4667426bebcc17b764b126b
+Screen-Off-TV-0.1.5.apk
+5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3
 ```
 
 ## 2. Bật chế độ nhà phát triển và gỡ lỗi
@@ -89,10 +89,10 @@ adb -s TV_SERIAL shell pm grant moe.shizuku.privileged.api android.permission.WR
 
 ## 6. Cài Screen Off TV và cấp quyền cho Screen Off TV
 
-Cài `Screen-Off-TV-0.1.4.apk` bằng trình quản lý tệp như bước 3, hoặc từ máy tính:
+Cài `Screen-Off-TV-0.1.5.apk` bằng trình quản lý tệp như bước 3, hoặc từ máy tính:
 
 ```bash
-adb -s TV_SERIAL install Screen-Off-TV-0.1.4.apk
+adb -s TV_SERIAL install Screen-Off-TV-0.1.5.apk
 ```
 
 Mở Screen Off TV. Ứng dụng có thể ghi **Cần cấp quyền Shizuku** dù Shizuku đã chạy:

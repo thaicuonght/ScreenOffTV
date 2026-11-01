@@ -1,0 +1,1 @@
+Sửa lỗi khôi phục độ sáng khi TV vào chế độ chờ. Giữ đúng độ sáng và chế độ tự động sau lỗi Shizuku; khôi phục thành công trước lần tắt đèn nền tiếp theo.

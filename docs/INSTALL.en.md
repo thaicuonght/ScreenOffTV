@@ -14,15 +14,15 @@ You need a TV connected to Wi-Fi, its remote, and either a computer with [Google
 | App | Project | Download |
 |---|---|---|
 | TV-compatible Shizuku fork, 13.7.0-thedjchi | [Release](https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi) | [APK](https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk) |
-| Screen Off TV 0.1.4 | [Repository APK page](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.4.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk) |
+| Screen Off TV 0.1.5 | [Repository APK page](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) |
 
 On GitHub's APK page choose Download raw file. Compare SHA-256 with `sha256sum FILE.apk` on Linux or `Get-FileHash FILE.apk -Algorithm SHA256` in PowerShell. Do not install an HTML page renamed to APK.
 
 ```text
 shizuku-v13.7.0-thedjchi.apk
 6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43
-Screen-Off-TV-0.1.4.apk
-e645b70728aa4dfb37c94f19cf7d644887f63e25c4667426bebcc17b764b126b
+Screen-Off-TV-0.1.5.apk
+5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3
 ```
 
 ## 2. Enable Developer options and debugging
@@ -91,7 +91,7 @@ The screenshot shows TCP and Watchdog enabled. TCP is not required on every TV. 
 Install its APK through the USB flow in step 3 or:
 
 ```bash
-adb -s TV_SERIAL install Screen-Off-TV-0.1.4.apk
+adb -s TV_SERIAL install Screen-Off-TV-0.1.5.apk
 ```
 
 Open Screen Off TV → Start service. The app may show that Shizuku permission is needed:

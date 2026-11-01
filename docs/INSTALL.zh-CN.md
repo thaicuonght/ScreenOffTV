@@ -14,15 +14,15 @@
 | 应用 | 项目 | 下载 |
 |---|---|---|
 | 适合电视遥控操作的 Shizuku fork 13.7.0-thedjchi | [发布页](https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi) | [APK](https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk) |
-| Screen Off TV 0.1.4 | [仓库 APK 页面](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.4.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk) |
+| Screen Off TV 0.1.5 | [仓库 APK 页面](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) |
 
 先下载两个文件。GitHub 文件页面选择 **Download raw file**，不要把 HTML 网页保存为 APK。在 Linux 用 `sha256sum 文件.apk`，在 PowerShell 用 `Get-FileHash 文件.apk -Algorithm SHA256`，对照：
 
 ```text
 shizuku-v13.7.0-thedjchi.apk
 6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43
-Screen-Off-TV-0.1.4.apk
-e645b70728aa4dfb37c94f19cf7d644887f63e25c4667426bebcc17b764b126b
+Screen-Off-TV-0.1.5.apk
+5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3
 ```
 
 ## 2. 开启开发者选项与调试
@@ -91,7 +91,7 @@ adb -s TV_SERIAL shell pm grant moe.shizuku.privileged.api android.permission.WR
 按步骤 3 的 USB 方法安装，或运行：
 
 ```bash
-adb -s TV_SERIAL install Screen-Off-TV-0.1.4.apk
+adb -s TV_SERIAL install Screen-Off-TV-0.1.5.apk
 ```
 
 打开 Screen Off TV，选择 **Start service**。应用可能提示需要 Shizuku 权限：

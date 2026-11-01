@@ -27,7 +27,7 @@ Screen Off TV điều khiển màn hình, không phát nhạc/video và không b
 
 ## Tải và cài đặt
 
-[**Tải APK 0.1.4**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk) · [SHA-256](dist/SHA256SUMS)
+[**Tải APK 0.1.5**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) · [SHA-256](dist/SHA256SUMS)
 
 APK được ký bằng khóa phát hành riêng.
 
@@ -99,7 +99,7 @@ Nếu ngôn ngữ TV chưa được hỗ trợ, ứng dụng dùng tiếng Anh. 
 
 ## Build và kiểm thử
 
-Phiên bản **0.1.4**, versionCode **4**, mã ứng dụng `com.thaicuonght.screenofftv`.
+Phiên bản **0.1.5**, versionCode **4**, mã ứng dụng `com.thaicuonght.screenofftv`.
 Cần JDK 17 và Android SDK platform 35. Cấu hình `JAVA_HOME`, `ANDROID_HOME`.
 
 ```bash

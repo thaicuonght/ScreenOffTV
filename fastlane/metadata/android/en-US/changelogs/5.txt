@@ -1,0 +1,1 @@
+Fix brightness restoration on TV standby. Preserve original brightness and automatic mode after Shizuku failures; retry restoration before the next screen-off operation.

@@ -23,7 +23,7 @@ captures/
 *.keystore
 
 # Publish only the current tested APK and its checksum
-!/dist/Screen-Off-TV-0.1.4.apk
+!/dist/Screen-Off-TV-0.1.5.apk
 !/dist/SHA256SUMS
 
 # Local release credentials

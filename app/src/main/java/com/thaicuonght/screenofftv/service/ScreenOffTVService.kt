@@ -266,9 +266,8 @@ class ScreenOffTVService : LifecycleService() {
                                 ShizukuPowerOffScreen -> display.setPowerModeToSurfaceControl(DisplayControlService.POWER_MODE_NORMAL)
                                     .withResult { name, detail -> error("$name: $detail") }
                                 ShizukuScreenBrightnessNeg1 -> {
-                                    display.setBrightnessToSurfaceControl(recordBrightness.coerceIn(0, 255) / 255f)
+                                    display.setBrightnessToSurfaceControl(savedBrightness().coerceIn(0, 255) / 255f)
                                         .withResult { name, detail -> error("$name: $detail") }
-                                    restoreBrightnessSettings(display)
                                 }
                             }
                             screenState.value = ScreenState.On
@@ -277,7 +276,7 @@ class ScreenOffTVService : LifecycleService() {
                             lastError.value = UiText(R.string.screen_on_failed, it.localizedMessage.orEmpty())
                         }
                     }
-                    if (isScreenOn && brightnessSettingsPending) {
+                    if (isScreenOn && brightnessRestore.pending) {
                         runCatching { displayControlService?.let { restoreBrightnessSettings(it) } }
                             .onFailure { lastError.value = UiText(R.string.brightness_restore_failed) }
                     }
@@ -477,9 +476,7 @@ class ScreenOffTVService : LifecycleService() {
     //== Screen state
     private val screenControlMutex = Mutex()
     val isScreenOn get() = screenState.value == ScreenState.On
-    private var brightnessSettingsPending = false
-    var recordBrightness = 255
-    var recordBrightnessMode = Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC
+    private val brightnessRestore = BrightnessRestoreState()
 
     enum class ScreenState {
         On, Off
@@ -491,7 +488,7 @@ class ScreenOffTVService : LifecycleService() {
             try {
                 when (feature.solution) {
                     ShizukuPowerOffScreen -> display.setPowerModeToSurfaceControl(DisplayControlService.POWER_MODE_NORMAL)
-                    ShizukuScreenBrightnessNeg1 -> display.setBrightnessToSurfaceControl(recordBrightness.coerceIn(0, 255) / 255f)
+                    ShizukuScreenBrightnessNeg1 -> display.setBrightnessToSurfaceControl(savedBrightness().coerceIn(0, 255) / 255f)
                 }.withResult { name, detail -> error("$name: $detail") }
                 screenState.value = ScreenState.On
                 updateHostState(true)
@@ -517,27 +514,38 @@ class ScreenOffTVService : LifecycleService() {
         }
     }
 
+    private fun savedBrightness(): Int =
+        brightnessRestore.brightness
+            ?: Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+
     private fun restoreBrightnessSettings(display: IDisplayControl) {
-        display.setBrightnessToSetting(recordBrightness)
-            .withResult { name, detail -> error("$name: $detail") }
-        if (feature.brightnessManualWhenScreenOff) {
-            display.setBrightnessModeToSetting(recordBrightnessMode)
-                .withResult { name, detail -> error("$name: $detail") }
-        }
-        brightnessSettingsPending = false
+        brightnessRestore.restore(
+            writeBrightness = { brightness ->
+                display.setBrightnessToSetting(brightness)
+                    .withResult { name, detail -> error("$name: $detail") }
+            },
+            writeMode = { mode ->
+                display.setBrightnessModeToSetting(mode)
+                    .withResult { name, detail -> error("$name: $detail") }
+            },
+        )
     }
 
     suspend fun turnScreenOff() {
         screenControlMutex.withLock {
             val display = checkNotNull(displayControlService)
-            var manualModeAttempted = false
+            var brightnessCaptured = false
             try {
                 if (feature.solution == ShizukuScreenBrightnessNeg1) {
-                    recordBrightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+                    // A failed restore must finish before reading potentially modified settings.
+                    withContext(Dispatchers.IO) { restoreBrightnessSettings(display) }
+                    val brightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+                    val mode = if (feature.brightnessManualWhenScreenOff) {
+                        Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE)
+                    } else null
+                    brightnessRestore.capture(brightness, mode)
+                    brightnessCaptured = true
                     if (feature.brightnessManualWhenScreenOff) {
-                        recordBrightnessMode = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE)
-                        manualModeAttempted = true
-                        brightnessSettingsPending = true
                         // Some firmware reapplies brightness on mode changes; finish this before panel-off.
                         withContext(Dispatchers.IO) {
                             display.setBrightnessModeToSetting(Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL)
@@ -553,7 +561,7 @@ class ScreenOffTVService : LifecycleService() {
                 screenState.value = ScreenState.Off
                 notificationHost.notify(false)
             } catch (e: Exception) {
-                if (manualModeAttempted) {
+                if (brightnessCaptured) {
                     withContext(kotlinx.coroutines.NonCancellable + Dispatchers.IO) {
                         runCatching { restoreBrightnessSettings(display) }.onFailure { restoreError ->
                             Log.e(TAG, "Could not roll back brightness settings", restoreError)
@@ -579,7 +587,7 @@ class ScreenOffTVService : LifecycleService() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     screenControlMutex.withLock {
-                        if (feature.solution == ShizukuScreenBrightnessNeg1) {
+                        if (brightnessRestore.pending) {
                             try {
                                 withContext(Dispatchers.IO) {
                                     displayControlService?.let { restoreBrightnessSettings(it) }
