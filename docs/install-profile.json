@@ -22,7 +22,7 @@
     "local_apk": "dist/Screen-Off-TV-0.1.6.apk",
     "sha256": "7e53d438c7803426f3eeb54413a2e6fdececb466fdb9cc9f38fe3608d37eafae",
     "signing": "Dedicated release certificate",
-    "public_download_verified": false,
+    "public_download_verified": true,
     "certificate_sha256": "58080edd53d450437732ca3029dc7ec88f229957c7ee3f45e9e3131173e6f982",
     "download_url": "https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.6.apk",
     "browser_url": "https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.6.apk",
