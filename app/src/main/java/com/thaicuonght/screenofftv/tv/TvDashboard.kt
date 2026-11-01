@@ -82,6 +82,7 @@ fun TvDashboard(
     val connectionReport by ScreenOffTVService.connectionReport.collectAsStateWithLifecycle()
     val running = state == ScreenOffTVService.State.Prepared
     val starting = state == ScreenOffTVService.State.Created
+    val stopping = state == ScreenOffTVService.State.Stopping
     val keyName = localizedKeyName(context, selectedKey)
     val instruction = when (mode) {
         RemoteGestureDetector.Mode.Single -> stringResource(R.string.instruction_single, keyName)
@@ -96,6 +97,8 @@ fun TvDashboard(
     DisposableEffect(Unit) { onDispose { VolumeKeyEventShizukuHost.endCapture() } }
     BackHandler(showSettings && dialog == null) { showSettings = false }
     val status = when {
+        stopping -> stringResource(R.string.service_stopping)
+        state == ScreenOffTVService.State.Error -> stringResource(R.string.service_error)
         !shizukuReady -> stringResource(R.string.need_shizuku)
         !shizukuGranted -> stringResource(R.string.need_permission)
         starting -> stringResource(R.string.connecting)
@@ -115,11 +118,15 @@ fun TvDashboard(
                     stringResource(if (shizukuGranted) R.string.permission_granted else R.string.permission_missing)), color = Color(0xFFB9C5D8))
                 if (message != null || error != null) Text((message ?: error)?.resolve(context).orEmpty(), color = Color(0xFFFFC9A6))
                 TvButton(
-                    text = when { starting -> stringResource(R.string.connecting_cancel); running -> stringResource(R.string.service_stop); else -> stringResource(R.string.service_start) },
+                    text = when { stopping -> stringResource(R.string.service_stopping); starting -> stringResource(R.string.connecting_cancel); running -> stringResource(R.string.service_stop); else -> stringResource(R.string.service_start) },
                     modifier = Modifier.focusRequester(first),
+                    enabled = !stopping,
                     onClick = if (starting || running) onStop else onStart,
                     primary = true,
                 )
+                if (state == ScreenOffTVService.State.Error) {
+                    TvButton(stringResource(R.string.service_stop), onClick = onStop)
+                }
                 TvButton(stringResource(R.string.screen_test), enabled = running) { dialog = "screenTest" }
                 Text(stringResource(R.string.wake_instruction, instruction), color = Color(0xFFB9C5D8), fontSize = 15.sp)
             }
@@ -131,7 +138,7 @@ fun TvDashboard(
                         autoStart = !autoStart
                         preferences.autoStart = autoStart
                     }
-                    TvButton(stringResource(R.string.screen_mode), enabled = !running && !starting) { dialog = "method" }
+                    TvButton(stringResource(R.string.screen_mode), enabled = !running && !starting && !stopping) { dialog = "method" }
                     Text(if (settings.solution == SettingsTokens.SolutionValue.ShizukuPowerOffScreen)
                         stringResource(R.string.current_panel)
                         else stringResource(R.string.current_backlight), color = Color(0xFFB9C5D8), fontSize = 14.sp)

@@ -142,4 +142,34 @@ class TvDashboardTest {
         compose.onNodeWithText("TV settings").assertIsDisplayed()
         compose.onNodeWithText("Current: Backlight off / Brightness = -1.").performScrollTo().assertIsDisplayed()
     }
+
+    @Test fun stoppingDisablesStartAndScreenModeChanges() {
+        val original = ScreenOffTVService.state.value
+        try {
+            ScreenOffTVService.state.value = ScreenOffTVService.State.Stopping
+            showDashboard()
+            compose.onNode(hasText("Stopping service…") and hasClickAction()).assertIsNotEnabled()
+            compose.onNodeWithText("Settings", useUnmergedTree = true).performClick()
+            compose.onNodeWithText("Screen-off mode", useUnmergedTree = true).assertIsNotEnabled()
+        } finally {
+            ScreenOffTVService.state.value = original
+        }
+    }
+
+    @Test fun permanentFailureShowsReasonAndAllowsStop() {
+        val originalState = ScreenOffTVService.state.value
+        val originalError = ScreenOffTVService.lastError.value
+        try {
+            ScreenOffTVService.state.value = ScreenOffTVService.State.Error
+            ScreenOffTVService.lastError.value = com.thaicuonght.screenofftv.i18n.UiText(
+                R.string.connection_permanent, "Unsupported display API")
+            showDashboard()
+            compose.onNodeWithText("Service could not start").assertIsDisplayed()
+            compose.onNodeWithText("Unsupported display API", substring = true).assertIsDisplayed()
+            compose.onNodeWithText("Stop service").assertIsEnabled()
+        } finally {
+            ScreenOffTVService.state.value = originalState
+            ScreenOffTVService.lastError.value = originalError
+        }
+    }
 }

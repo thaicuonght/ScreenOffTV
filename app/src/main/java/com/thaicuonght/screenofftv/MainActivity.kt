@@ -33,22 +33,31 @@ class MainActivity : ComponentActivity() {
     private var granted by mutableStateOf(false)
     private var message by mutableStateOf<UiText?>(null)
     private var pendingStart = false
+    private var awaitingNotification = false
     private val permissionListener = Shizuku.OnRequestPermissionResultListener { code, result ->
         if (code == 100) runOnUiThread {
             refresh()
             if (pendingStart && result == PackageManager.PERMISSION_GRANTED) startWithNotification()
-            else if (pendingStart) message = UiText(R.string.permission_request_denied)
-            pendingStart = false
+            else if (pendingStart) {
+                pendingStart = false
+                message = UiText(R.string.permission_request_denied)
+            }
         }
     }
     private val binderListener = Shizuku.OnBinderReceivedListener { runOnUiThread { refresh() } }
     private val deadListener = Shizuku.OnBinderDeadListener { runOnUiThread { refresh() } }
     private val notificationPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        startServiceSafely()
+        awaitingNotification = false
+        if (pendingStart) {
+            pendingStart = false
+            startServiceSafely()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pendingStart = savedInstanceState?.getBoolean("pending_start") ?: false
+        awaitingNotification = savedInstanceState?.getBoolean("awaiting_notification") ?: false
         appLanguage = AppLanguage.saved(this)
         Sui.init(packageName)
         Shizuku.addBinderReceivedListenerSticky(binderListener)
@@ -77,7 +86,13 @@ class MainActivity : ComponentActivity() {
                     shizukuGranted = granted,
                     message = message,
                     onStart = { requestStart() },
-                    onStop = { stopService(Intent(this, ScreenOffTVService::class.java)) },
+                    onStop = {
+                        pendingStart = false
+                        ScreenOffTVService.state.value = ScreenOffTVService.State.Stopping
+                        if (!stopService(Intent(this, ScreenOffTVService::class.java))) {
+                            ScreenOffTVService.state.value = ScreenOffTVService.State.Destroyed
+                        }
+                    },
                     onScreenOff = {
                         startServiceSafely(Intent(this, ScreenOffTVService::class.java).putExtra(
                             ScreenOffTVService.EXTRA_SCREEN, ScreenOffTVService.EXTRA_VALUE_SCREEN_OFF
@@ -104,17 +119,28 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    override fun onResume() { super.onResume(); refresh() }
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("pending_start", pendingStart)
+        outState.putBoolean("awaiting_notification", awaitingNotification)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refresh()
+        if (pendingStart && granted && !awaitingNotification) startWithNotification()
+    }
     private fun refresh() {
         ready = runCatching { Shizuku.pingBinder() }.getOrDefault(false)
         granted = ready && runCatching { Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED }.getOrDefault(false)
     }
     private fun requestStart() {
+        if (pendingStart || awaitingNotification) return
         refresh()
         message = null
         if (!ready) { message = UiText(R.string.start_shizuku_first); return }
+        pendingStart = true
         if (!granted) {
-            pendingStart = true
             runCatching { Shizuku.requestPermission(100) }.onFailure {
                 pendingStart = false
                 message = UiText(R.string.permission_request_failed)
@@ -124,9 +150,14 @@ class MainActivity : ComponentActivity() {
         startWithNotification()
     }
     private fun startWithNotification() {
+        if (awaitingNotification) return
         if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            awaitingNotification = true
             notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else startServiceSafely()
+        } else {
+            pendingStart = false
+            startServiceSafely()
+        }
     }
     private fun startServiceSafely(intent: Intent = Intent(this, ScreenOffTVService::class.java)) {
         runCatching { ContextCompat.startForegroundService(this, intent) }.onFailure {

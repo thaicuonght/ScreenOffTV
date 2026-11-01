@@ -1,6 +1,5 @@
 # Cài đặt Screen Off TV lên TV — hướng dẫn cho agent
 
-
 Hướng dẫn cài mới và cấu hình cả **thedjchi/Shizuku** và **Screen Off TV** để sẵn sàng sử dụng. Thực hiện theo 6 bước bên dưới, chỉ chuyển bước khi đạt điều kiện ghi ở cuối bước đó.
 
 ## Chuẩn bị

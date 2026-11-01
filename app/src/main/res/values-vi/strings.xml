@@ -124,4 +124,7 @@
     <string name="waiting_shizuku">Đang chờ Shizuku chạy và được cấp quyền. Dịch vụ sẽ tự kết nối lại.</string>
     <string name="connection_retrying">Kết nối bị ngắt hoặc chưa sẵn sàng. Đang tự kết nối lại…</string>
     <string name="brightness_restore_failed">Đã bật hình nhưng chưa khôi phục được cài đặt độ sáng. Hãy kiểm tra độ sáng trên TV.</string>
+    <string name="service_stopping">Đang dừng dịch vụ…</string>
+    <string name="service_error">Không thể khởi động dịch vụ</string>
+    <string name="connection_permanent">Không thể khởi tạo điều khiển màn hình trên TV này: %1$s. Hãy dừng dịch vụ và thử chế độ tắt màn hình khác.</string>
 </resources>

@@ -2,7 +2,6 @@
 
 截图仅用于说明界面，并非当前版本的测试证明。
 
-
 [English](INSTALL.en.md) · [Tiếng Việt](INSTALL.md) · **简体中文** · [AI 安装指南（越南语）](AGENT-INSTALL.md) · [README](../README.zh-CN.md)
 
 按以下顺序操作：**安装 Shizuku → 连接 Shizuku 与电视 → 开启 Shizuku 自启动 → 安装 Screen Off TV → 授权 → 检查功能**。本指南使用英语界面的电视截图，按钮、菜单和状态名称保留英文，方便与截图对照，操作说明使用中文。
@@ -14,15 +13,15 @@
 | 应用 | 项目 | 下载 |
 |---|---|---|
 | 适合电视遥控操作的 Shizuku fork 13.7.0-thedjchi | [发布页](https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi) | [APK](https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk) |
-| Screen Off TV 0.1.5 | [仓库 APK 页面](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) |
+| Screen Off TV 0.1.6 | [仓库 APK 页面](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.6.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.6.apk) |
 
 先下载两个文件。GitHub 文件页面选择 **Download raw file**，不要把 HTML 网页保存为 APK。在 Linux 用 `sha256sum 文件.apk`，在 PowerShell 用 `Get-FileHash 文件.apk -Algorithm SHA256`，对照：
 
 ```text
 shizuku-v13.7.0-thedjchi.apk
 6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43
-Screen-Off-TV-0.1.5.apk
-5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3
+Screen-Off-TV-0.1.6.apk
+7e53d438c7803426f3eeb54413a2e6fdececb466fdb9cc9f38fe3608d37eafae
 ```
 
 ## 2. 开启开发者选项与调试
@@ -91,7 +90,7 @@ adb -s TV_SERIAL shell pm grant moe.shizuku.privileged.api android.permission.WR
 按步骤 3 的 USB 方法安装，或运行：
 
 ```bash
-adb -s TV_SERIAL install Screen-Off-TV-0.1.5.apk
+adb -s TV_SERIAL install Screen-Off-TV-0.1.6.apk
 ```
 
 打开 Screen Off TV，选择 **Start service**。应用可能提示需要 Shizuku 权限：
@@ -138,8 +137,6 @@ Screen Off TV 有独立的开机启动开关，同时需要开启步骤 5 中 Sh
 **检查自动启动：**通过系统菜单重启电视，等待 Wi-Fi 和 Shizuku。等待时间取决于电视和 Wi-Fi 连接。**打开 Shizuku 或 Screen Off TV 之前，不要点击 **Start service**，也不要运行电脑启动命令。**先播放音乐或视频并确认有声音，再用快捷操作关闭和恢复画面。如果画面响应且声音继续播放，说明本次自动启动正常。
 
 如失败，请检查两个应用的自启动选项及 Shizuku 是否正在运行。如果必须打开应用或手动启动服务才能使用，则本次自动启动未通过。报告问题时，请提供电视型号、Android 版本、两个应用的版本和显示状态。重启后保持 Wi-Fi 可用。
-
-
 
 ## 10. 常见问题
 

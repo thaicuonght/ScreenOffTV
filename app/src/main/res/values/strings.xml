@@ -125,4 +125,7 @@
     <string name="waiting_shizuku">Waiting for Shizuku to start and authorization. The service will reconnect automatically.</string>
     <string name="connection_retrying">Connection interrupted or unavailable. Reconnecting automatically…</string>
     <string name="brightness_restore_failed">The picture is on, but restoring brightness settings failed. Check the TV brightness settings.</string>
+    <string name="service_stopping">Stopping service…</string>
+    <string name="service_error">Service could not start</string>
+    <string name="connection_permanent">This TV could not initialize screen control: %1$s. Stop the service and try another screen-off mode.</string>
 </resources>

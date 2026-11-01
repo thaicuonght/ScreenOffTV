@@ -9,6 +9,8 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 
+internal class PermanentConnectionException(message: String) : Exception(message)
+
 /** Keeps a foreground service connected until its owner explicitly stops it. */
 internal class ConnectionSupervisor(
     private val connect: suspend () -> Unit,
@@ -20,6 +22,7 @@ internal class ConnectionSupervisor(
 ) {
     suspend fun run() {
         while (currentCoroutineContext().isActive) {
+            var retry = true
             try {
                 connect()
                 while (currentCoroutineContext().isActive) {
@@ -32,10 +35,19 @@ internal class ConnectionSupervisor(
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (failure: Exception) {
+                retry = failure !is PermanentConnectionException
                 onFailure(failure)
             } finally {
-                withContext(NonCancellable) { disconnect() }
+                val reportFailure = currentCoroutineContext().isActive
+                withContext(NonCancellable) {
+                    try {
+                        disconnect()
+                    } catch (failure: Exception) {
+                        if (reportFailure) onFailure(failure)
+                    }
+                }
             }
+            if (!retry) return
             delay(retryDelayMs)
         }
     }

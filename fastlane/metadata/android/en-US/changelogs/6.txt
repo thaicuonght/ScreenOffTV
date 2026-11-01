@@ -1,0 +1,1 @@
+Serialize screen commands; retain recovery settings across process restarts; handle TV standby/wake; serialize service shutdown and restart; report unsupported display APIs; preserve pending permission requests across activity recreation.

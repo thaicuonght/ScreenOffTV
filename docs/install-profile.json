@@ -17,16 +17,17 @@
     "shizuku": "moe.shizuku.privileged.api"
   },
   "screen_off": {
-    "version": "0.1.5",
-    "version_code": 5,
-    "local_apk": "dist/Screen-Off-TV-0.1.5.apk",
-    "sha256": "5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3",
+    "version": "0.1.6",
+    "version_code": 6,
+    "local_apk": "dist/Screen-Off-TV-0.1.6.apk",
+    "sha256": "7e53d438c7803426f3eeb54413a2e6fdececb466fdb9cc9f38fe3608d37eafae",
     "signing": "Dedicated release certificate",
-    "public_download_verified": true,
+    "public_download_verified": false,
     "certificate_sha256": "58080edd53d450437732ca3029dc7ec88f229957c7ee3f45e9e3131173e6f982",
-    "download_url": "https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk",
-    "browser_url": "https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk",
-    "build_variant": "release"
+    "download_url": "https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.6.apk",
+    "browser_url": "https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.6.apk",
+    "build_variant": "release",
+    "publication_status": "published"
   },
   "shizuku": {
     "tag": "v13.7.0-thedjchi",
@@ -45,7 +46,7 @@
         "Grant WRITE_SECURE_SETTINGS if requested by installed fork setup"
       ],
       "permission": "android.permission.WRITE_SECURE_SETTINGS",
-      "startup_delay": "Shizuku may wait several minutes for Wi-Fi. Screen Off TV 0.1.5 keeps waiting and automatically retries failed service connections, the 30-second limit is per binding attempt, not total boot wait.",
+      "startup_delay": "Shizuku may wait several minutes for Wi-Fi. Screen Off TV 0.1.6 keeps waiting and automatically retries failed service connections, the 30-second limit is per binding attempt, not total boot wait.",
       "pc_mode": "PC-only startup does not provide automatic boot recovery",
       "verification": "A configured boot switch is not proof of reboot recovery. Perform an actual reboot test only when requested, see optional_verification.reboot."
     },

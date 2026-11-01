@@ -1,37 +1,31 @@
-# Screen Off TV 0.1.5 — verification
+# Screen Off TV 0.1.6 — verification
 
-Application ID: `com.thaicuonght.screenofftv`, versionCode 5.
-Release APK: `dist/Screen-Off-TV-0.1.5.apk`, signed with the dedicated release certificate.
-APK hash and certificate fingerprint are recorded in [install-profile.json](install-profile.json).
+Application ID: `com.thaicuonght.screenofftv`, versionCode 6.
+APK: `dist/Screen-Off-TV-0.1.6.apk`, signed with the existing dedicated release key.
+APK identity, hash, certificate and publication status are recorded in [install-profile.json](install-profile.json).
 
 ## Host checks — 2026-11-01
 
-Release build passed. All **22 unit tests passed** (18 app, 1 IPC, 3 Shizuku service). Android UI-test APK compilation passed; connected tests were not run.
+33 unit tests passed: 29 app, 1 IPC and 3 Shizuku service tests.
 
-Android lint completed with **0 errors and 23 warnings**: launcher icon shape/duplicates, unused resources, wake-lock timeout, an obsolete SDK check and vector-path complexity. The wake lock intentionally remains held while the panel is off and is released when the service restores the picture or stops. These warnings are not suppressed.
+Regression coverage includes queued toggles, readiness rechecking after waiting, repeated explicit screen-off commands, brightness recovery across recreated state, durable-save failures, cancellation and serialized service replacement, permanent display errors, and cleanup failures during reconnecting.
 
-The release APK signature and identity were verified using apksigner and aapt. VCS metadata is disabled in build configuration, so APKs do not contain the source repository commit reference.
-
-Dependencies are pinned to the versions in `gradle/libs.versions.toml`; this cleanup does not claim every dependency is the newest upstream release. AGP 8.5.2 reports a compileSdk 35 support warning; this configuration completed the build and checks.
+UI-test sources also cover disabling actions while stopping and showing permanent errors with a Stop action. UI-test APK compilation is a host check, not evidence of device test execution.
 
 ```bash
 ./gradlew :app:assembleRelease :app:testDebugUnitTest :ipc:testDebugUnitTest :shizuku-service:testDebugUnitTest :app:assembleDebugAndroidTest :app:lintDebug
 ```
 
-## Brightness restoration regression checks
+Signature verification passed with the same release certificate as 0.1.5. aapt confirmed package `com.thaicuonght.screenofftv`, version 0.1.6 / code 6. APK SHA-256 is recorded in the install profile and `dist/SHA256SUMS`. VCS metadata remains disabled.
 
-Six unit tests cover standby without a saved brightness, restoring the original values once, retry after brightness/mode write failures, preventing an overwrite of pending settings, and leaving brightness mode unchanged when manual compatibility is disabled.
+## Device checks still required
 
-## Device checks
+This release has not been installed or tested on a TV. Verify actual panel off/on, standby/wake, rapid remote commands, stop/start, delayed/restarted Shizuku, crash recovery, activity recreation during authorization and audio continuity with a named player. The device recovery journal is excluded from cloud backup and device transfer.
 
-This release has not been installed or tested on a TV. UI-test APK compilation does not mean device tests passed.
-
-Screen on/off, physical shortcut capture, audio continuity with a named player, brightness restoration and reboot recovery require device verification. Screenshots in the installation guides illustrate the UI, not verification of this release.
-
-Run connected UI tests only on a selected test device:
+Connected UI tests require a selected test device:
 
 ```bash
 ./gradlew :app:connectedDebugAndroidTest
 ```
 
-Record the TV model, Android/firmware, Shizuku version, player, selected screen mode, shortcut and observed results when reporting compatibility.
+Dependencies remain pinned. AGP 8.5.2 reports a compileSdk 35 support warning. Final lint: 0 errors, 23 existing warnings (icons, unused resources, wake-lock timeout, obsolete SDK check and vector-path complexity). Warnings are not suppressed.

@@ -1,0 +1,1 @@
+Tuần tự hóa lệnh màn hình, lưu trạng thái khôi phục qua lần khởi động lại tiến trình, xử lý standby và bật lại TV, chờ dừng dịch vụ xong trước khi bật lại, báo lỗi API màn hình không hỗ trợ và giữ yêu cầu cấp quyền khi Activity được tạo lại.

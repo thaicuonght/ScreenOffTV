@@ -73,4 +73,36 @@ class ConnectionSupervisorTest {
         assertEquals(0, failures)
         assertEquals(1, releases)
     }
+
+    @Test fun unsupportedScreenControlStopsRetryingButReleasesServices() = runBlocking {
+        var attempts = 0
+        var releases = 0
+        var reported: Exception? = null
+        val supervisor = ConnectionSupervisor(
+            connect = { attempts++; throw PermanentConnectionException("Unsupported TV display API") },
+            isHealthy = { true }, disconnect = { releases++ }, onFailure = { reported = it },
+            retryDelayMs = 1, healthCheckMs = 1,
+        )
+        withTimeout(2_000) { supervisor.run() }
+        assertEquals(1, attempts)
+        assertEquals(1, releases)
+        assertTrue(reported is PermanentConnectionException)
+    }
+
+    @Test fun cleanupFailureDoesNotCrashOrPreventReconnection() = runBlocking {
+        var attempts = 0
+        var releases = 0
+        val connected = CompletableDeferred<Unit>()
+        val supervisor = ConnectionSupervisor(
+            connect = { if (++attempts == 1) error("Disconnected") else connected.complete(Unit) },
+            isHealthy = { true },
+            disconnect = { if (++releases == 1) error("Binder disappeared during cleanup") },
+            onFailure = {}, retryDelayMs = 1, healthCheckMs = 1,
+        )
+        val job = launch { supervisor.run() }
+        withTimeout(2_000) { connected.await() }
+        job.cancelAndJoin()
+        assertEquals(2, attempts)
+        assertEquals(2, releases)
+    }
 }

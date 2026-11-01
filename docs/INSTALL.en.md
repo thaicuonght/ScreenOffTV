@@ -2,7 +2,6 @@
 
 Screenshots illustrate the interface; they are not test evidence for the current release.
 
-
 **English** · [Tiếng Việt](INSTALL.md) · [简体中文](INSTALL.zh-CN.md) · [AI agent runbook](AGENT-INSTALL.md) · [README](../README.md)
 
 Follow this order: **install Shizuku → connect Shizuku to the TV → enable Shizuku startup on boot → install Screen Off TV → authorize → check the features**. Screenshots are from the TV with its interface set to English.
@@ -14,15 +13,15 @@ You need a TV connected to Wi-Fi, its remote, and either a computer with [Google
 | App | Project | Download |
 |---|---|---|
 | TV-compatible Shizuku fork, 13.7.0-thedjchi | [Release](https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi) | [APK](https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk) |
-| Screen Off TV 0.1.5 | [Repository APK page](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.5.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) |
+| Screen Off TV 0.1.6 | [Repository APK page](https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.6.apk) | [APK](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.6.apk) |
 
 On GitHub's APK page choose Download raw file. Compare SHA-256 with `sha256sum FILE.apk` on Linux or `Get-FileHash FILE.apk -Algorithm SHA256` in PowerShell. Do not install an HTML page renamed to APK.
 
 ```text
 shizuku-v13.7.0-thedjchi.apk
 6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43
-Screen-Off-TV-0.1.5.apk
-5683f1cfa28e4d7571cea1a4efb1dce2a7fedc1d576c97884ebb2502d88ab5d3
+Screen-Off-TV-0.1.6.apk
+7e53d438c7803426f3eeb54413a2e6fdececb466fdb9cc9f38fe3608d37eafae
 ```
 
 ## 2. Enable Developer options and debugging
@@ -91,7 +90,7 @@ The screenshot shows TCP and Watchdog enabled. TCP is not required on every TV. 
 Install its APK through the USB flow in step 3 or:
 
 ```bash
-adb -s TV_SERIAL install Screen-Off-TV-0.1.5.apk
+adb -s TV_SERIAL install Screen-Off-TV-0.1.6.apk
 ```
 
 Open Screen Off TV → Start service. The app may show that Shizuku permission is needed:
@@ -138,8 +137,6 @@ The default shortcut is **Mute, double press**. To use the RED button:
 **Check automatic startup:** Restart the TV through its system menu and wait for Wi-Fi and Shizuku. Waiting time depends on the TV and Wi-Fi connection. **Before opening Shizuku or Screen Off TV, do not select Start service or run a computer starter command.** Start music or a video, confirm sound, then use the shortcut to turn the picture off and back on. If the picture responds and audio continues, automatic startup worked in this run.
 
 If it fails, check both boot switches and whether Shizuku is running. If opening an app or starting its service manually is required, automatic startup did not pass. Include the TV model, Android version, both app versions and displayed status when reporting a problem. Keep Wi-Fi available after reboot.
-
-
 
 ## 10. Troubleshooting
 

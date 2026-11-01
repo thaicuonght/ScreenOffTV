@@ -27,7 +27,7 @@ Screen Off TV controls the display. It does not play music or video or add backg
 
 ## Download and install
 
-[**Download APK 0.1.5**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.5.apk) · [SHA-256](dist/SHA256SUMS)
+[**Download APK 0.1.6**](https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.6.apk) · [SHA-256](dist/SHA256SUMS)
 
 The APK is signed with a dedicated release key.
 
@@ -99,7 +99,7 @@ If the TV language is unsupported, the app uses English. Your selection is saved
 
 ## Build and test
 
-Version **0.1.5**, versionCode **4**, application ID `com.thaicuonght.screenofftv`.
+Version **0.1.6**, versionCode **4**, application ID `com.thaicuonght.screenofftv`.
 Requires JDK 17 and Android SDK platform 35. Set `JAVA_HOME` and `ANDROID_HOME`.
 
 ```bash
