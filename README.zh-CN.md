@@ -101,7 +101,7 @@ https://raw.githubusercontent.com/thaicuonght/ScreenOffTV/main/docs/AGENT-INSTAL
 
 ## 构建与测试
 
-版本 **0.1.6**，versionCode **4**，应用 ID `com.thaicuonght.screenofftv`。
+版本 **0.1.6**，versionCode **6**，应用 ID `com.thaicuonght.screenofftv`。
 需要 JDK 17 和 Android SDK platform 35。设置 `JAVA_HOME` 与 `ANDROID_HOME`。
 
 ```bash

@@ -99,7 +99,7 @@ Nếu ngôn ngữ TV chưa được hỗ trợ, ứng dụng dùng tiếng Anh. 
 
 ## Build và kiểm thử
 
-Phiên bản **0.1.6**, versionCode **4**, mã ứng dụng `com.thaicuonght.screenofftv`.
+Phiên bản **0.1.6**, versionCode **6**, mã ứng dụng `com.thaicuonght.screenofftv`.
 Cần JDK 17 và Android SDK platform 35. Cấu hình `JAVA_HOME`, `ANDROID_HOME`.
 
 ```bash

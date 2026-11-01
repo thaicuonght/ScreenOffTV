@@ -99,7 +99,7 @@ If the TV language is unsupported, the app uses English. Your selection is saved
 
 ## Build and test
 
-Version **0.1.6**, versionCode **4**, application ID `com.thaicuonght.screenofftv`.
+Version **0.1.6**, versionCode **6**, application ID `com.thaicuonght.screenofftv`.
 Requires JDK 17 and Android SDK platform 35. Set `JAVA_HOME` and `ANDROID_HOME`.
 
 ```bash
