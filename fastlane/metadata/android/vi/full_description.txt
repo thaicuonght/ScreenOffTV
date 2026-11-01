@@ -1,0 +1,11 @@
+Screen Off TV giúp điều khiển màn hình Android TV bằng remote.
+
+Chọn Mute, tăng/giảm âm lượng hoặc nhận phím khác. Dùng một lần nhấn, hai lần nhấn nhanh hoặc giữ 0,6 giây để tắt và bật lại màn hình. Phím mới chỉ được lưu sau khi xác nhận. Phím vẫn giữ tác dụng gốc trên TV.
+
+Chọn Screen Off / Picture Off (mặc định) hoặc tắt đèn nền. Khả năng hỗ trợ và tiếp tục phát phụ thuộc firmware TV và trình phát. Shizuku phải chạy và được cấp quyền. Tự khởi động cùng TV được bật mặc định, có thể tắt trong Cài đặt và cần Shizuku sẵn sàng.
+
+Chọn tiếng Việt, Anh, Trung giản thể hoặc theo ngôn ngữ TV. Điều hướng bằng D-pad và OK.
+
+Không tích hợp quảng cáo hoặc phân tích hành vi. Cài đặt lưu trên thiết bị. Mã nguồn theo GPL v3.
+
+Kho mã: https://github.com/thaicuonght/ScreenOffTV

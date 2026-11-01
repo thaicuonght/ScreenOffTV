@@ -1,0 +1,5 @@
+Screen Off TV stores your remote key, press action, screen-off mode and start-on-boot preference on this device. It has no ads, behavioral analytics or service that uploads user data to a server.
+
+Shizuku is used to control the screen and observe remote key events. Notification permission is used for service status and errors. The foreground service and wake lock help the app keep running while the screen is off. Boot permission is used only while start on boot is enabled.
+
+Android may back up settings according to the device backup configuration. Clearing app data deletes the saved preferences.

@@ -1,0 +1,1 @@
+Định danh com.thaicuonght.screenofftv và khóa ký phát hành riêng. Cập nhật liên kết mã nguồn, hướng dẫn cài đặt và build. Cần cài mới khi thay thế bản có chữ ký khác.

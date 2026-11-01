@@ -1,0 +1,5 @@
+Ứng dụng lưu lựa chọn phím remote, thao tác nhấn, phương thức tắt màn hình và tùy chọn tự khởi động trên thiết bị. Bản hiện tại không tích hợp quảng cáo, phân tích hành vi hay dịch vụ gửi dữ liệu người dùng lên máy chủ.
+
+Shizuku được dùng để điều khiển màn hình và quan sát sự kiện phím remote. Quyền thông báo dùng để hiển thị trạng thái và lỗi. Dịch vụ nền trước và wake lock giúp duy trì hoạt động khi màn hình tắt. Quyền khởi động cùng thiết bị chỉ được dùng khi tùy chọn tự khởi động đang bật.
+
+Cài đặt có thể được Android sao lưu theo cấu hình sao lưu của thiết bị. Xóa dữ liệu ứng dụng sẽ xóa các tùy chọn đã lưu.

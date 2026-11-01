@@ -1,0 +1,11 @@
+Screen Off TV lets you control the Android TV screen with your remote.
+
+Choose Mute, Volume Up, Volume Down, or learn another key. Use a single press, double press, or a 0.6-second hold to turn the screen off and back on. Learned keys are saved after confirmation. The original key action is preserved.
+
+Choose Screen Off / Picture Off (default) or backlight off. Support and continued playback depend on the TV firmware and media player. Shizuku must be running and authorized. Start on boot is enabled by default, can be disabled in Settings, and requires Shizuku to be available.
+
+Choose English, Vietnamese or Simplified Chinese, or follow the TV language. Navigate with D-pad and OK.
+
+No ads or analytics integration. Preferences are stored on the device. Source is licensed under GPL v3.
+
+Source: https://github.com/thaicuonght/ScreenOffTV

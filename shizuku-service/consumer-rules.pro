@@ -1,0 +1,2 @@
+-keep class com.thaicuonght.screenofftv.shizuku.DisplayControlService
+-keep class com.thaicuonght.screenofftv.shizuku.EventsProviderService

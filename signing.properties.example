@@ -1,0 +1,6 @@
+# Copy to signing.properties and configure your private release key.
+# Paths are relative to the project root; credentials must never be committed.
+storeFile=.private-signing/screenofftv-release.p12
+storePassword=REPLACE_WITH_YOUR_STORE_PASSWORD
+keyAlias=screenofftv
+keyPassword=REPLACE_WITH_YOUR_KEY_PASSWORD

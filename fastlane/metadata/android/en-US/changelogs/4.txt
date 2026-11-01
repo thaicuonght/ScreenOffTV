@@ -1,0 +1,1 @@
+New application identity com.thaicuonght.screenofftv and dedicated release signing key. Updated source links, installation guides and build instructions. This release requires a fresh installation when replacing builds signed with a different key.

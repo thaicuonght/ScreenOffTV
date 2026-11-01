@@ -1,0 +1,175 @@
+{
+  "schema_version": 10,
+  "human_guide": "docs/INSTALL.md",
+  "agent_guide": "docs/AGENT-INSTALL.md",
+  "defaults": {
+    "operation": "new_install",
+    "language": "follow system unless requested otherwise",
+    "remote_key": "Mute",
+    "press_action": "Double",
+    "start_on_boot": true,
+    "screen_mode": "ShizukuPowerOffScreen",
+    "optional_key_change": "physical RED button, learn and confirm actual event code, never change the app default",
+    "artifact_source": "published_apk"
+  },
+  "packages": {
+    "screen_off": "com.thaicuonght.screenofftv",
+    "shizuku": "moe.shizuku.privileged.api"
+  },
+  "screen_off": {
+    "version": "0.1.4",
+    "version_code": 4,
+    "local_apk": "dist/Screen-Off-TV-0.1.4.apk",
+    "sha256": "e645b70728aa4dfb37c94f19cf7d644887f63e25c4667426bebcc17b764b126b",
+    "signing": "Dedicated release certificate",
+    "public_download_verified": true,
+    "certificate_sha256": "58080edd53d450437732ca3029dc7ec88f229957c7ee3f45e9e3131173e6f982",
+    "download_url": "https://github.com/thaicuonght/ScreenOffTV/raw/refs/heads/main/dist/Screen-Off-TV-0.1.4.apk",
+    "browser_url": "https://github.com/thaicuonght/ScreenOffTV/blob/main/dist/Screen-Off-TV-0.1.4.apk",
+    "build_variant": "release"
+  },
+  "shizuku": {
+    "tag": "v13.7.0-thedjchi",
+    "name": "shizuku-v13.7.0-thedjchi.apk",
+    "url": "https://github.com/thedjchi/Shizuku/releases/download/v13.7.0-thedjchi/shizuku-v13.7.0-thedjchi.apk",
+    "size": 3653986,
+    "sha256": "6ea6dee65d5ddc626b6b75b2c2f67f8cc547fa47d7b437e6892639c37eaffe43",
+    "download_page": "https://github.com/thedjchi/Shizuku",
+    "release_page": "https://github.com/thedjchi/Shizuku/releases/tag/v13.7.0-thedjchi",
+    "non_root_boot": {
+      "minimum_android_api": 30,
+      "requirements": [
+        "Supported on-device startup method, complete Shizuku own pairing if required by that method. PC pairing alone is not sufficient evidence of Shizuku pairing.",
+        "Enable Start on boot in fork settings",
+        "Wi-Fi connection available after reboot",
+        "Grant WRITE_SECURE_SETTINGS if requested by installed fork setup"
+      ],
+      "permission": "android.permission.WRITE_SECURE_SETTINGS",
+      "startup_delay": "Shizuku may wait several minutes for Wi-Fi. Screen Off TV 0.1.4 keeps waiting and automatically retries failed service connections, the 30-second limit is per binding attempt, not total boot wait.",
+      "pc_mode": "PC-only startup does not provide automatic boot recovery",
+      "verification": "A configured boot switch is not proof of reboot recovery. Perform an actual reboot test only when requested, see optional_verification.reboot."
+    },
+    "root_boot": "Only on a device already rooted, do not root as part of installation",
+    "package": "moe.shizuku.privileged.api",
+    "version_code": 1361,
+    "certificate_sha256": "947e81ed49d6cde4006bd64b94ab69e63f50074ce01451d1bf30acb14e591f37",
+    "distribution": "thedjchi/Shizuku TV-compatible fork, explicitly selected by project owner",
+    "maintenance_status": "Check the selected fork release page before replacing this pinned dependency."
+  },
+  "human_guides": {
+    "vi": "docs/INSTALL.md",
+    "en": "docs/INSTALL.en.md",
+    "zh-CN": "docs/INSTALL.zh-CN.md"
+  },
+  "install_policy": {
+    "path_base": "repository_root",
+    "artifact_selection_order": [
+      "explicit_user_apk",
+      "direct_apk_download_url"
+    ],
+    "fresh_install_settings": "Use defaults unless the user requests different settings. Enable Shizuku boot startup when supported by the startup method.",
+    "no_test_request": "Skip only physical shortcut/screen/audio tests, reboot and automated tests. Still connect to TV, verify thedjchi fork, start Shizuku, authorize Screen Off TV, open settings and verify ready state.",
+    "default_workflow": "Six steps: connect to intended TV, download and verify both APKs then install them, start and confirm Shizuku, authorize and start Screen Off TV, configure and read settings, report actual actions and concise current evidence. Use diagnostic branches only when needed.",
+    "clone_repository_for_install": false,
+    "build_from_source_for_install": false,
+    "build_requires_explicit_user_request": true,
+    "download_failure": "Report the URL/download/checksum error, do not fall back to cloning or building.",
+    "required_tools": [
+      "ADB (Android Platform Tools)",
+      "HTTPS downloader",
+      "SHA-256 calculator"
+    ],
+    "install_build_toolchain_for_optional_checks": false,
+    "user_profile": "Check full package UID and target user only when multiple profiles or ambiguous authorization entries require it. Match the intended Screen Off TV package/user, never authorize all profiles or select by label alone in an ambiguous list.",
+    "ui_navigation": "uiautomator, UI hierarchy/XML, ADB, screenshots and directional keys are allowed throughout, including pairing. Image reading is not required. Read fresh UI after changes, tap the preference row when its switch is not clickable, and confirm the new state. Resolve activity only if normal app opening fails. If pairing detection is interrupted, inspect the result and adapt tools, request human input only when necessary.",
+    "shizuku_start": "Press Start, handle Allow USB debugging with Always allow/Allow for the intended connection, then inspect the result. Pair only if requested or the error identifies missing pairing. Confirm pairing, press Start again and handle any authorization prompt. Other errors require their own diagnosis. PC adb pair does not pair Shizuku itself.",
+    "step_4_gate": {
+      "all_required": [
+        "Current Shizuku UI says running",
+        "pidof shizuku_server returns a PID",
+        "No pending authorization or pairing dialog"
+      ],
+      "on_failure": "Remain in step 3, diagnose the current error or report blocked, do not proceed to Screen Off TV authorization."
+    },
+    "retry_policy": "After each attempted fix, inspect the result. If the same error repeats without new information, report the blocker instead of looping installations, dumps or pairing.",
+    "shizuku_identity": "Verify the downloaded Shizuku APK SHA-256 against the profile, then read installed package/version after successful installation. The name or icon alone does not prove thedjchi origin.",
+    "optional_tools": [
+      "aapt",
+      "apksigner"
+    ],
+    "ui_state_reading": {
+      "scope": "All switches, checkboxes and selection controls in both apps.",
+      "locate": "Parse the full XML/hierarchy structurally. Find the label, its containing preference row and the associated control within that row. Label and control may be siblings. Do not infer state from fixed-length text slices, nearest checked attributes or attribute order.",
+      "read": "For a checkable control, read its own checked attribute with checkable=true. Ignore checked on non-checkable text/layout nodes. Support equivalent control classes, not only android.widget.Switch.",
+      "distinguish": "clickable=false does not mean off. enabled describes interaction availability and focused describes focus. Use selected or explicit On/Off labels only when that UI actually uses them as the setting value, never infer enabled state from focus or highlighting.",
+      "act": "If the observed value already matches the target, do not tap. Otherwise act once on the control or clickable preference row, handle any dialog, then obtain a fresh hierarchy and verify the same setting before acting again.",
+      "unknown": "Missing or ambiguous state is unknown, never false. Re-read or use another available tool before further toggling. Ask the user only when blocked."
+    }
+  },
+  "required_installation_evidence": [
+    {
+      "id": "tv_connection",
+      "required": true,
+      "evidence": "ADB device state, actual model and Android/API"
+    },
+    {
+      "id": "shizuku_fork",
+      "required": true,
+      "evidence": "Downloaded APK SHA-256 proving thedjchi origin, successful installation and installed package/version."
+    },
+    {
+      "id": "shizuku_running",
+      "required": true,
+      "evidence": "Current Shizuku running UI, actual server PID, and no pending pairing/authorization dialog. State whether pairing was needed and performed."
+    },
+    {
+      "id": "shizuku_settings",
+      "required": true,
+      "evidence": "Observed Start on boot value and startup method. TCP/Watchdog are optional. Record unsupported boot and any unmet requested setup explicitly."
+    },
+    {
+      "id": "screen_off_ready",
+      "required": true,
+      "evidence": "Installed version, Shizuku authorization and current Ready to control state"
+    },
+    {
+      "id": "screen_off_settings",
+      "required": true,
+      "evidence": "All five actual setting values: remote key, press action, boot switch, screen mode and selected language option. Use defaults unless the user requests different settings."
+    }
+  ],
+  "completion_rule": "Single source of truth: required_installation_evidence. Report every item by ID with current-run evidence. Overall ready only when every required item is passed and no requested configuration remains unmet, otherwise incomplete with missing step/reason. Historical verification is never current evidence. Report optional tests separately, including not_tested.",
+  "optional_verification": {
+    "physical_key": "Only when requested: actual remote input observed, ADB key events are insufficient.",
+    "screen_audio": "Only when requested: real panel off/on and continuing audio observed with named player, ADB screenshots are insufficient.",
+    "reboot": "Only when requested: verify boot completion, Shizuku PID and Screen Off TV service before manually opening either app, then confirm ready UI.",
+    "report": "Report each as passed, failed or not_tested. Never infer test success from configured settings."
+  },
+  "evidence_report": {
+    "item_fields": [
+      "id",
+      "status",
+      "observed",
+      "source",
+      "reason_if_not_passed"
+    ],
+    "status_values": [
+      "passed",
+      "failed",
+      "blocked"
+    ],
+    "source": "Current-run command output or current UI state, redact pairing codes and other secrets.",
+    "overall_values": [
+      "ready",
+      "incomplete"
+    ],
+    "tests": "Report optional_verification separately, ready means configured and ready, not physical/reboot tests passed.",
+    "actions": "Briefly report installed app versions, whether pairing was needed, and permissions/settings configured.",
+    "verbosity": "One concise row per required item, no preliminary checklist recital, full UI XML or long logs unless needed for a blocker."
+  },
+  "conditional_diagnostics": {
+    "target_profile": "Only when multiple profiles or ambiguous authorization: identify intended Android user, package and full per-user UID. Do not authorize every profile.",
+    "launcher_activity": "Only if normal opening fails: resolve the launcher component, then reuse it."
+  }
+}
+

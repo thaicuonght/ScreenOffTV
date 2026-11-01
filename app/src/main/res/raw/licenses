@@ -1,0 +1,22 @@
+Screen Off TV — thaicuonght
+Kho mã dự án: https://github.com/thaicuonght/ScreenOffTV
+
+Screen Off TV sử dụng mã nguồn kế thừa từ Extinguish của Moderpach theo GNU GPL v3.
+Nguồn: https://github.com/Moderpach/Extinguish
+Giấy phép đầy đủ: LICENSE trong kho mã nguồn.
+Bản Screen Off TV được tổ chức lại và sửa đổi ngày 24/10/2026.
+
+Android Open Source Project và AndroidX — Apache 2.0
+https://source.android.com
+https://github.com/androidx/androidx
+
+Kotlin — Apache 2.0
+https://github.com/JetBrains/kotlin
+
+Shizuku API — MIT
+https://github.com/RikkaApps/Shizuku-API
+
+Tham khảo kỹ thuật điều khiển màn hình từ scrcpy — Apache 2.0
+https://github.com/Genymobile/scrcpy
+
+Ảnh biểu tượng Screen Off TV do chủ dự án cung cấp.
